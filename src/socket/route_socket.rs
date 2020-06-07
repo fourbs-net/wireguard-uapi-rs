@@ -1,4 +1,6 @@
-use super::{link_message, WireGuardDeviceLinkOperation};
+use ipnet::IpNet;
+use super::{link_message, WireGuardDeviceLinkOperation,
+            addr_message, WireGuardDeviceAddrOperation, WireGuardDeviceAddrScope};
 use crate::err::{ConnectError, LinkDeviceError};
 use neli::consts::NlFamily;
 use neli::socket::NlSocket;
@@ -18,6 +20,13 @@ impl RouteSocket {
         sock.bind(pid, groups)?;
 
         Ok(Self { sock })
+    }
+
+    pub fn add_addr(&mut self, ifname: &str, addr: IpNet, scope: WireGuardDeviceAddrScope) -> Result<(), LinkDeviceError> {
+        let operation = WireGuardDeviceAddrOperation::Add;
+        self.sock.send_nl(addr_message(ifname, operation, addr, scope)?)?;
+        self.sock.recv_ack()?;
+        Ok(())
     }
 
     pub fn add_device(&mut self, ifname: &str) -> Result<(), LinkDeviceError> {

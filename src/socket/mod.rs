@@ -10,3 +10,6 @@ pub(crate) type NlWgMsgType = u16;
 
 pub(crate) mod link_message;
 pub(crate) use link_message::{link_message, WireGuardDeviceLinkOperation};
+
+pub(crate) mod addr_message;
+pub(crate) use addr_message::{addr_message, WireGuardDeviceAddrOperation, WireGuardDeviceAddrScope};
