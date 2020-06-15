@@ -5,7 +5,7 @@ pub mod err;
 pub mod get;
 mod interface;
 pub mod set;
-mod socket;
+pub mod socket;
 
 pub use interface::DeviceInterface;
-pub use socket::{RouteSocket, WgSocket};
+pub use socket::{RouteSocket, WgSocket, WireGuardDeviceAddrScope};

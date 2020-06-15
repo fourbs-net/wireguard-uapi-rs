@@ -12,4 +12,6 @@ pub(crate) mod link_message;
 pub(crate) use link_message::{link_message, WireGuardDeviceLinkOperation};
 
 pub(crate) mod addr_message;
-pub(crate) use addr_message::{addr_message, WireGuardDeviceAddrOperation, WireGuardDeviceAddrScope};
+pub(crate) use addr_message::{addr_message, WireGuardDeviceAddrOperation};
+
+pub use addr_message::WireGuardDeviceAddrScope;

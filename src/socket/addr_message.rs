@@ -52,6 +52,9 @@ pub fn addr_message(
     let infomsg = {
         let ifa_family = if addr.addr().is_ipv6() {
             neli::consts::rtnl::RtAddrFamily::Inet6
+        } else {
+            neli::consts::rtnl::RtAddrFamily::Inet
+        };
         let ifa_flags = vec![IfaF::Permanent];
         let ifa_scope = match scope {
             WireGuardDeviceAddrScope::Universe => RT_SCOPE_UNIVERSE,
@@ -80,9 +83,9 @@ pub fn addr_message(
         };
         let flags = match link_operation {
             WireGuardDeviceAddrOperation::Add => {
-                vec![NlmF::Request, NlmF::Ack, NlmF::Create, NlmF::Excl]
+                vec![NlmF::Request, NlmF::Create, NlmF::Excl]
             }
-            WireGuardDeviceAddrOperation::Delete => vec![NlmF::Request, NlmF::Ack],
+            WireGuardDeviceAddrOperation::Delete => vec![NlmF::Request],
         };
         let seq = None;
         let pid = None;
